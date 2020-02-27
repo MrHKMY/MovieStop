@@ -20,42 +20,40 @@ import java.util.List;
  */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-    private List<MovieClass> mMovieList;
-    private LayoutInflater inflater;
-    private Context mContext;
+    private List<Movie> movieList;
+    private final MovieClickListener movieClickListener;
 
-    public MovieAdapter(Context context) {
-        this.mContext = context;
-        this.inflater = LayoutInflater.from(context);
-        this.mMovieList = new ArrayList<>();
+    public MovieAdapter(List<Movie> movieList, MovieClickListener movieClickListener) {
+        this.movieList = movieList;
+        this.movieClickListener = movieClickListener;
     }
 
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.row_movie, parent, false);
-        MovieViewHolder viewHolder = new MovieViewHolder(view);
-        return viewHolder;
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.row_movie, parent, false);
+        return new MovieViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Context context = holder.imageView.getContext();
-        MovieClass movie = mMovieList.get(position);
+        Movie movie = movieList.get(position);
         Picasso.get()
-                .load(movie.getPoster())
+                .load(movie.getPosterPath())
                 .placeholder(R.color.colorPrimary)
                 .into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return mMovieList.size();
+        return this.movieList.size();
     }
 
-    public void setMovieList(List<MovieClass> mMovieList) {
-        this.mMovieList.clear();
-        this.mMovieList = mMovieList;
+    public void setMovieList(List<Movie> mMovieList) {
+        this.movieList.clear();
+        this.movieList = mMovieList;
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
