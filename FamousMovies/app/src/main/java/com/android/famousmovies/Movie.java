@@ -1,10 +1,27 @@
 package com.android.famousmovies;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  * Created by Hakimi on 22/2/2020.
  */
-public class Movie {
-    private String title, poster, description, backdrop;
+public class Movie implements Serializable {
+    public static final String TMDB_IMAGE_PATH = "http://image.tmdb.org/t/p/w500/";
+
+    @SerializedName("title")
+    private String title;
+
+    @SerializedName("poster_path")
+    private String posterPath;
+
+    @SerializedName("overview")
+    private String overview;
+
+    @SerializedName("backdrop_path")
+    private String backdropPath;
 
     public String getTitle() {
         return title;
@@ -14,27 +31,28 @@ public class Movie {
         this.title = title;
     }
 
-    public String getPoster() {
-        return ("http://t2.gstatic.com/images?q=tbn:ANd9GcQW3LbpT94mtUG1PZIIzJNxmFX399wr_NcvoppJ82k7z99Hx6in");
+    public String getPosterPath() {
+        return TMDB_IMAGE_PATH + posterPath;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
 
-    public String getDescription() {
-        return description;
+    public String getOverview() {
+        return overview;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 
-    public String getBackdrop() {
-        return backdrop;
+    public String getBackdropPath() {
+        return TMDB_IMAGE_PATH + backdropPath;
     }
 
-    public void setBackdrop(String backdrop) {
-        this.backdrop = backdrop;
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
     }
+
 }
