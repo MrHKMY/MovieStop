@@ -1,11 +1,14 @@
 package com.android.famousmovies;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,11 +24,11 @@ import java.util.List;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private List<Movie> movieList;
-    private final MovieClickListener movieClickListener;
+    //private final MovieClickListener movieClickListener;
 
-    public MovieAdapter(List<Movie> movieList, MovieClickListener movieClickListener) {
+    public MovieAdapter(List<Movie> movieList) {
         this.movieList = movieList;
-        this.movieClickListener = movieClickListener;
+       // this.movieClickListener = movieClickListener;
     }
 
     @NonNull
@@ -37,13 +40,26 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        Context context = holder.imageView.getContext();
-        Movie movie = movieList.get(position);
+    public void onBindViewHolder(@NonNull MovieViewHolder holder, final int position) {
+        final Context context = holder.imageView.getContext();
+        final Movie movie = movieList.get(position);
         Picasso.get()
                 .load(movie.getPosterPath())
                 .placeholder(R.color.colorPrimary)
                 .into(holder.imageView);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Item Clicked : " + movie.getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent (context, MovieDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("movie", movie);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+
+            }
+        });
     }
 
     @Override

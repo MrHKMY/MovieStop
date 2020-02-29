@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
     }
 
     private void loadPage(final int page) {
@@ -105,17 +106,9 @@ public class MainActivity extends AppCompatActivity {
                     assert response.body() != null;
                     totalPages = response.body().getTotalPages();
 
-                    mAdapter = new MovieAdapter(movieResults, new MovieClickListener() {
-                        @Override
-                        public void onMovieClick(Movie movie) {
-                            Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("movie", movie);
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                        }
-                    });
+                    mAdapter = new MovieAdapter(movieResults);
                     recyclerView.setAdapter(mAdapter);
+
                 } else {
 
                     Toast.makeText(MainActivity.this, "Response : " + response.code(), Toast.LENGTH_SHORT).show();
@@ -181,6 +174,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }
