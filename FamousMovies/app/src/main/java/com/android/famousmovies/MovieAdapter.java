@@ -67,11 +67,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return this.movieList.size();
     }
 
-    public void setMovieList(List<Movie> mMovieList) {
-        this.movieList.clear();
-        this.movieList = mMovieList;
-    }
-
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public RelativeLayout parentLayout;

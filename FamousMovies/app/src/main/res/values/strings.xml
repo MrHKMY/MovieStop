@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">FamousMovies</string>
     <string name="action_settings">Settings</string>
-    <string name="api_key">76c21ff70e233160c6ab10434c0ece6c</string>
+    <string name="api_key">YOUR_API_KEY</string>
 </resources>

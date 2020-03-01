@@ -22,12 +22,50 @@
 
     <include layout="@layout/content_main" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+-->
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fabMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:fab_labelStyle="@style/custom_fab"
+        >
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@mipmap/ic_launcher"
+            app:fab_size="mini"
+            android:id="@+id/fab_action1"
+            app:fab_title="Upcoming Movies"
+            />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@mipmap/ic_launcher"
+            app:fab_size="mini"
+            android:id="@+id/fab_action2"
+            app:fab_title="Popular Movies"
+            />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@mipmap/ic_launcher"
+            app:fab_size="mini"
+            android:id="@+id/fab_action3"
+            app:fab_title="Popular TV Shows"
+            />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

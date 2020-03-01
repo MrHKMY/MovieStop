@@ -3,7 +3,9 @@ package com.android.famousmovies;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,15 +34,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
+    //private RecyclerView mRecyclerView;
     private static final String TAG = "MainActivity";
     private static final String theURL = "http://api.themoviedb.org/3/";
-    private MovieApiService apiService;
+    //private MovieApiService apiService;
     private Call<MoviePageResult> call;
     private List<Movie> movieResults;
     private MovieAdapter mAdapter;
     private int totalPages;
-    private int currentSortMode = 1;
     private static final int FIRST_PAGE = 1;
 
 
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         EndlessRecyclerViewScrollListener scrollListener = new EndlessRecyclerViewScrollListener(manager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                if ((page + 1) <= totalPages && currentSortMode != 3) {
+                if ((page + 1) <= totalPages) {
                     loadPage(page + 1);
                 }
             }
@@ -74,7 +75,32 @@ public class MainActivity extends AppCompatActivity {
         loadPage(FIRST_PAGE);
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab1 = findViewById(R.id.fab_action1);
+        FloatingActionButton fab2 = findViewById(R.id.fab_action2);
+        FloatingActionButton fab3 = findViewById(R.id.fab_action3);
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadUpcoming(FIRST_PAGE);
+            }
+        });
+
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadPage(FIRST_PAGE);
+            }
+        });
+
+        fab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadTVShow(FIRST_PAGE);
+            }
+        });
+
+
+        /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+         */
 
     }
 
@@ -93,14 +121,14 @@ public class MainActivity extends AppCompatActivity {
 
         MovieApiService movieApiService = retrofit.create(MovieApiService.class);
 
-        call = movieApiService.getPopularMovies(getString(R.string.api_key));
+        call = movieApiService.getPopularMovies(page, getString(R.string.api_key));
 
         call.enqueue(new Callback<MoviePageResult>() {
             @Override
             public void onResponse(Call<MoviePageResult> call, Response<MoviePageResult> response) {
 
                 if (page == 1) {
-                    Log.v(TAG, "Response code: " + response.toString());
+                    //Log.v(TAG, "Response code: " + response.toString());
                     assert response.body() != null;
                     movieResults = response.body().getMovieResult();
                     assert response.body() != null;
@@ -110,9 +138,94 @@ public class MainActivity extends AppCompatActivity {
                     recyclerView.setAdapter(mAdapter);
 
                 } else {
+                    //Toast.makeText(MainActivity.this, "Response : " + response.code(), Toast.LENGTH_SHORT).show();
+                    //Log.v(TAG, "Response code: " + response.code());
+                    assert response.body() != null;
+                    List<Movie> movies = response.body().getMovieResult();
+                    for (Movie movie : movies) {
+                        movieResults.add(movie);
+                        mAdapter.notifyItemInserted(movieResults.size() - 1);
+                    }
+                }
+            }
 
-                    Toast.makeText(MainActivity.this, "Response : " + response.code(), Toast.LENGTH_SHORT).show();
-                    Log.v(TAG, "Response code: " + response.code());
+            @Override
+            public void onFailure(Call<MoviePageResult> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadUpcoming(final int page) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(theURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        MovieApiService movieApiService = retrofit.create(MovieApiService.class);
+
+        call = movieApiService.getUpcomingMovies(page, getString(R.string.api_key));
+
+        call.enqueue(new Callback<MoviePageResult>() {
+            @Override
+            public void onResponse(Call<MoviePageResult> call, Response<MoviePageResult> response) {
+
+                if (page == 1) {
+                    //Log.v(TAG, "Response code: " + response.toString());
+                    assert response.body() != null;
+                    movieResults = response.body().getMovieResult();
+                    assert response.body() != null;
+                    totalPages = response.body().getTotalPages();
+
+                    mAdapter = new MovieAdapter(movieResults);
+                    recyclerView.setAdapter(mAdapter);
+
+                } else {
+                    //Toast.makeText(MainActivity.this, "Response : " + response.code(), Toast.LENGTH_SHORT).show();
+                    //Log.v(TAG, "Response code: " + response.code());
+                    assert response.body() != null;
+                    List<Movie> movies = response.body().getMovieResult();
+                    for (Movie movie : movies) {
+                        movieResults.add(movie);
+                        mAdapter.notifyItemInserted(movieResults.size() - 1);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MoviePageResult> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadTVShow(final int page) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(theURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        MovieApiService movieApiService = retrofit.create(MovieApiService.class);
+
+        call = movieApiService.getPopularTV(page, getString(R.string.api_key));
+
+        call.enqueue(new Callback<MoviePageResult>() {
+            @Override
+            public void onResponse(Call<MoviePageResult> call, Response<MoviePageResult> response) {
+
+                if (page == 1) {
+                    //Log.v(TAG, "Response code: " + response.toString());
+                    assert response.body() != null;
+                    movieResults = response.body().getMovieResult();
+                    assert response.body() != null;
+                    totalPages = response.body().getTotalPages();
+
+                    mAdapter = new MovieAdapter(movieResults);
+                    recyclerView.setAdapter(mAdapter);
+
+                } else {
+                    //Toast.makeText(MainActivity.this, "Response : " + response.code(), Toast.LENGTH_SHORT).show();
+                    //Log.v(TAG, "Response code: " + response.code());
                     assert response.body() != null;
                     List<Movie> movies = response.body().getMovieResult();
                     for (Movie movie : movies) {
@@ -130,8 +243,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void getPopularMovie() {
-        apiService.getPopularMovies(getString(R.string.api_key)).enqueue(new Callback<MoviePageResult>() {
+    /*private void getPopularMovie() {
+        apiService.getPopularMovies(page,getString(R.string.api_key)).enqueue(new Callback<MoviePageResult>() {
             @Override
             public void onResponse(Call<MoviePageResult> call, Response<MoviePageResult> response) {
                 Toast.makeText(MainActivity.this, "Response : " + response.code(), Toast.LENGTH_SHORT).show();
@@ -153,6 +266,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+     */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -169,6 +284,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(this, "Settings Clicked", Toast.LENGTH_SHORT).show();
             return true;
         }
 
