@@ -23,6 +23,35 @@ public class Movie implements Serializable {
     @SerializedName("backdrop_path")
     private String backdropPath;
 
+    @SerializedName("vote_average")
+    private String vote;
+
+    @SerializedName("name")
+    private String tvShowName;
+
+    public String getTvShowName() {
+        return tvShowName;
+    }
+
+    public String getVote() {
+        return vote;
+    }
+
+    public void setVote(String vote) {
+        this.vote = vote;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @SerializedName("id")
+    private int id;
+
     public String getTitle() {
         return title;
     }
