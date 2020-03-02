@@ -31,6 +31,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
        // this.movieClickListener = movieClickListener;
     }
 
+
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,6 +44,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(@NonNull MovieViewHolder holder, final int position) {
         final Context context = holder.imageView.getContext();
         final Movie movie = movieList.get(position);
+
         Picasso.get()
                 .load(movie.getPosterPath())
                 .placeholder(R.color.colorPrimary)

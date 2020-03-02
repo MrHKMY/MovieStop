@@ -19,6 +19,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private TextView movieOverview;
     private ImageView poster;
     private ImageView backdrop;
+    private TextView voteTextView, titleTextView, nameTextView, titleToolbar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
         movieOverview = findViewById(R.id.textView2);
         poster = findViewById(R.id.posterImageView);
         backdrop = findViewById(R.id.backdropImageView);
+        voteTextView = findViewById(R.id.voteTextView);
+        titleTextView = findViewById(R.id.titleTextView);
+        nameTextView = findViewById(R.id.nameTextView);
+        titleToolbar = findViewById(R.id.movieTitleToolbar);
+
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -45,5 +52,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 .load(mMovie.getBackdropPath())
                 .placeholder(R.color.colorPrimary)
                 .into(backdrop);
+
+        voteTextView.setText(mMovie.getVote());
+        titleTextView.setText(mMovie.getTitle());
+        nameTextView.setText(mMovie.getTvShowName());
+        titleToolbar.setText(mMovie.getTitle());
+
     }
 }

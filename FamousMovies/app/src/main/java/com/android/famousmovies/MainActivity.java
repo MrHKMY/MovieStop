@@ -1,6 +1,7 @@
 package com.android.famousmovies;
 
 import android.content.Intent;
+import android.database.Observable;
 import android.os.Bundle;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -19,10 +20,13 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,17 +36,18 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class MainActivity extends AppCompatActivity {
 
-    //private RecyclerView mRecyclerView;
     private static final String TAG = "MainActivity";
     private static final String theURL = "http://api.themoviedb.org/3/";
-    //private MovieApiService apiService;
     private Call<MoviePageResult> call;
     private List<Movie> movieResults;
     private MovieAdapter mAdapter;
     private int totalPages;
     private static final int FIRST_PAGE = 1;
+    private ProgressBar loadProgress;
 
 
     @BindView(R.id.recyclerView)
@@ -53,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        loadProgress = findViewById(R.id.progressBar);
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
@@ -99,18 +105,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        /*FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-         */
-
     }
 
     private void loadPage(final int page) {
@@ -118,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 .baseUrl(theURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
 
         MovieApiService movieApiService = retrofit.create(MovieApiService.class);
 
@@ -128,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<MoviePageResult> call, Response<MoviePageResult> response) {
 
                 if (page == 1) {
+                    loadProgress.setVisibility(View.GONE);
                     //Log.v(TAG, "Response code: " + response.toString());
                     assert response.body() != null;
                     movieResults = response.body().getMovieResult();
@@ -241,32 +237,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    /*private void getPopularMovie() {
-        apiService.getPopularMovies(page,getString(R.string.api_key)).enqueue(new Callback<MoviePageResult>() {
-            @Override
-            public void onResponse(Call<MoviePageResult> call, Response<MoviePageResult> response) {
-                Toast.makeText(MainActivity.this, "Response : " + response.code(), Toast.LENGTH_SHORT).show();
-                Log.v(TAG, "Response code: " + response.code());
-                assert response.body() != null;
-                List<Movie> movies = response.body().getMovieResult();
-                for (Movie movie : movies) {
-                    movieResults.add(movie);
-                    mAdapter.notifyItemInserted(movieResults.size() - 1);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<MoviePageResult> call, Throwable t) {
-
-            }
-        });
-
-    }
-
-     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
