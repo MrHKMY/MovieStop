@@ -33,14 +33,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
         nameTextView = findViewById(R.id.nameTextView);
         titleToolbar = findViewById(R.id.movieTitleToolbar);
 
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         mMovie = (Movie) bundle.getSerializable("movie");
         populateActivity(mMovie);
+
     }
 
-    private void populateActivity (Movie mMovie) {
+
+
+    private void populateActivity(Movie mMovie) {
 
         movieOverview.setText(mMovie.getOverview());
         Picasso.get()
@@ -53,10 +55,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 .placeholder(R.color.colorPrimary)
                 .into(backdrop);
 
-        voteTextView.setText(mMovie.getVote());
+        voteTextView.setText(mMovie.getVote() + "/10");
         titleTextView.setText(mMovie.getTitle());
         nameTextView.setText(mMovie.getTvShowName());
-        titleToolbar.setText(mMovie.getTitle());
+        if (mMovie.getTitle() != null) {
+            titleToolbar.setText(mMovie.getTitle());
+        } else {
+            titleToolbar.setText(mMovie.getTvShowName());
+        }
+
 
     }
 }
