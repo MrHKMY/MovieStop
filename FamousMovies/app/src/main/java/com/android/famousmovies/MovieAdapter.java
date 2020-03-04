@@ -15,22 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Hakimi on 22/2/2020.
  */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
-
     private List<Movie> movieList;
-    //private final MovieClickListener movieClickListener;
 
     public MovieAdapter(List<Movie> movieList) {
         this.movieList = movieList;
-       // this.movieClickListener = movieClickListener;
     }
-
 
     @NonNull
     @Override
@@ -54,7 +49,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "Item Clicked : " + movie.getTitle(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent (context, MovieDetailsActivity.class);
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("movie", movie);
                 intent.putExtras(bundle);
