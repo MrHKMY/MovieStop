@@ -121,7 +121,26 @@
             android:text="The name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+            app:layout_constraintVertical_bias="0.0"
             tools:layout_editor_absoluteX="78dp" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/readReview"
+            android:layout_width="63dp"
+            android:layout_height="75dp"
+            android:onClick="readReviewButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="16dp"
+            android:text="CLICK TO READ REVIEW"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerView2"
+            app:layout_constraintTop_toBottomOf="@id/readReview"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

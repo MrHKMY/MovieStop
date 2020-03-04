@@ -5,4 +5,11 @@
     <color name="colorAccent">#AE0000</color>
     <color name="black_semi_transparent">#B2000000</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="whitecolor">#E8F5E9</color>
+    <color name="blue_lighter">#1B2C53</color>
+    <color name="blue_darker">@color/colorPrimaryDark</color>
+    <color name="blue_dark">#030B27</color>
+    <color name="blue4">#000E30</color>
+    <color name="skyblue">#0040FF</color>
 </resources>

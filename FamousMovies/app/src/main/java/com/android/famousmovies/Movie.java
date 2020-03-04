@@ -3,8 +3,6 @@ package com.android.famousmovies;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
 /**
  * Created by Hakimi on 22/2/2020.
  */
