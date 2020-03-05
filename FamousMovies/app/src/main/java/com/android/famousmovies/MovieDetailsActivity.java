@@ -32,13 +32,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private TextView movieOverview;
     private ImageView poster;
     private ImageView backdrop;
-    private TextView voteTextView, titleTextView, nameTextView, titleToolbar, reviewMainClick, review1;
+    private TextView voteTextView, titleTextView, releaseTextView, titleToolbar, reviewMainClick, review1;
     private List<Review> reviewResult;
     private ReviewAdapter rAdapter;
 
-    @BindView(R.id.recyclerView2)
-    RecyclerView recyclerView2;
-
+    //@BindView(R.id.recyclerView2)
+    //RecyclerView recyclerView2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         backdrop = findViewById(R.id.backdropImageView);
         voteTextView = findViewById(R.id.voteTextView);
         titleTextView = findViewById(R.id.titleTextView);
-        nameTextView = findViewById(R.id.nameTextView);
+        releaseTextView = findViewById(R.id.release);
         titleToolbar = findViewById(R.id.movieTitleToolbar);
         reviewMainClick = findViewById(R.id.readReview);
 
@@ -78,7 +77,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                         if (id != 0) {
                             reviewResult = response.body().getMovieReview();
                             rAdapter = new ReviewAdapter(reviewResult);
-                            recyclerView2.setAdapter(rAdapter);
+                            //recyclerView2.setAdapter(rAdapter);
                         } else {
                             List<Review> reviews = response.body().getMovieReview();
                             for (Review review : reviews) {
@@ -100,21 +99,29 @@ public class MovieDetailsActivity extends AppCompatActivity {
         movieOverview.setText(mMovie.getOverview());
         Picasso.get()
                 .load(mMovie.getPosterPath())
-                .placeholder(R.color.colorPrimary)
                 .into(poster);
 
         Picasso.get()
                 .load(mMovie.getBackdropPath())
-                .placeholder(R.color.colorPrimary)
                 .into(backdrop);
 
         voteTextView.setText(mMovie.getVote() + "/10");
-        titleTextView.setText(mMovie.getTitle());
-        nameTextView.setText(mMovie.getTvShowName());
+        if (mMovie.getReleaseDate() != null) {
+            releaseTextView.setText(mMovie.getReleaseDate());
+        } else {
+            releaseTextView.setText(mMovie.getFirstDate());
+        }
+
         if (mMovie.getTitle() != null) {
             titleToolbar.setText(mMovie.getTitle());
         } else {
-            titleToolbar.setText(mMovie.getTvShowName());
+            titleToolbar.setText(mMovie.getName());
+        }
+
+        if (mMovie.getTitle() != null) {
+            titleTextView.setText(mMovie.getTitle());
+        } else {
+            titleTextView.setText(mMovie.getName());
         }
     }
 }

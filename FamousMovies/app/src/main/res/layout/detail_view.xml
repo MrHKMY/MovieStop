@@ -52,41 +52,42 @@
             android:id="@+id/posterImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="180dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="220dp"
             android:background="@layout/image_border"
             android:padding="7dp"
-            app:layout_constraintEnd_toStartOf="@+id/textView2"
+            app:layout_constraintHorizontal_bias="0.409"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/poster" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="255dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:padding="15dp"
-            android:paddingTop="10dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="cursive"
             android:text="The detail activity"
-            android:textSize="14sp"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/posterImageView" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toEndOf="@+id/posterImageView"
-            app:layout_constraintTop_toBottomOf="@+id/backdropImageView">
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-
-
                 app:srcCompat="@android:drawable/star_big_on" />
 
             <TextView
@@ -98,49 +99,58 @@
                 android:fontFamily="sans-serif-condensed-medium"
                 android:text="Viewers Rating"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 tools:layout_editor_absoluteX="89dp" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/titleTextView"
-            android:layout_width="255dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
+            android:layout_margin="15dp"
             android:text="The title"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            tools:layout_editor_absoluteX="78dp" />
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/posterImageView"
+            app:layout_constraintTop_toBottomOf="@+id/backdropImageView" />
 
         <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="255dp"
+            android:id="@+id/releaseDateTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="The name"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="78dp" />
+            android:layout_margin="15dp"
+            android:text="Release Date :"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/posterImageView"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <TextView
-            android:visibility="gone"
+            android:id="@+id/release"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:text="Release date"
+            android:textAlignment="viewEnd"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/posterImageView"
+            app:layout_constraintTop_toBottomOf="@+id/releaseDateTV" />
+
+        <TextView
             android:id="@+id/readReview"
             android:layout_width="63dp"
             android:layout_height="75dp"
             android:onClick="readReviewButton"
+            android:text="CLICK TO READ REVIEW"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/titleTextView"
             app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="16dp"
-            android:text="CLICK TO READ REVIEW"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/recyclerView2"
-            app:layout_constraintTop_toBottomOf="@id/readReview"/>
+            tools:layout_editor_absoluteX="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

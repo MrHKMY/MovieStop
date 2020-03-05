@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,13 +41,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         Picasso.get()
                 .load(movie.getPosterPath())
-                .placeholder(R.color.colorPrimary)
                 .into(holder.imageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Item Clicked : " + movie.getTitle(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Item Clicked : " + movie.getTitle(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("movie", movie);

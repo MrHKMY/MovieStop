@@ -24,11 +24,25 @@ public class Movie implements Serializable {
     @SerializedName("vote_average")
     private String vote;
 
-    @SerializedName("name")
-    private String tvShowName;
+    @SerializedName("release_date")
+    private String releaseDate;
 
-    public String getTvShowName() {
-        return tvShowName;
+    @SerializedName("name")
+    private String name;
+
+    @SerializedName("first_air_date")
+    private String firstDate;
+
+    public String getFirstDate() {
+        return firstDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
     }
 
     public String getVote() {

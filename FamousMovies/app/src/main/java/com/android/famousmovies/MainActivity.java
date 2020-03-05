@@ -36,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private static final String theURL = "http://api.themoviedb.org/3/";
+    private static final String theURL = "https://api.themoviedb.org/3/";
     private String ANONYMOUS;
     private Call<MoviePageResult> call;
     private List<Movie> movieResults;
