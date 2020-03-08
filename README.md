@@ -17,4 +17,10 @@ Libraries used :
 
 7. FloatingActionButton
 
-<img src="MovieStop/Preview/1.png" width=250>
+<img src="FamousMovies/Preview/1.png" width=250>
+
+<img src="FamousMovies/Preview/2.png" width=250>
+
+<img src="FamousMovies/Preview/3.png" width=250>
+
+<img src="FamousMovies/Preview/4.png" width=250>
